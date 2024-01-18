@@ -5,11 +5,16 @@ const express = require('express');
 // make a server instance
 const app = express();
 
+app.use(express.json());
+
 app.get("/", (request, response)=>{
     response.json({
         message: "Hello world"
     });
 });
+
+const PetRouter = require('./controllers/PetController');
+app.use('./pets', PetRouter)
 
 module.exports = {
     app
