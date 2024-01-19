@@ -14,7 +14,7 @@ router.get('/all', async (request, response) =>{
 
 // finds one pet by its ID
 router.get('/:id', async (request, response) => {
-    let result = null;
+    let result = await Pet.findById(request.params.id).catch(error =>{ return "id not found"});
 
     response.json({
         pet: result
@@ -23,10 +23,12 @@ router.get('/:id', async (request, response) => {
 
 //finds by name
 router.get('/search/name/:name', async (request, response) => {
-    let result = null;
+
+    console.log(request.params.name);
+    let result = await Pet.find({name: request.params.name});
 
     response.json({
-        pet: result
+        pets: result
     });
 })
 
@@ -42,6 +44,15 @@ router.get('/search/type/:type', async (request, response) =>{
 // create a new pet in the DB
 // POST localhost:3000/pets/
 router.post('/', async (request, response) => {
+    /*
+    try{
+        let result = await Pet.create(request.body);
+        catch(error){
+            result = error,
+        }
+    }
+    */
+    // error handling via Promise.catch()
     let result = await Pet.Create(request.body);
 
     response.json({
