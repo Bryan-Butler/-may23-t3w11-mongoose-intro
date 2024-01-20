@@ -16,6 +16,9 @@ app.get("/", (request, response)=>{
 const PetRouter = require('./controllers/PetController');
 app.use('./pets', PetRouter)
 
+const SightingRouter = require('./controllers/SightingController');
+app.use('/sightings', SightingRouter);
+
 module.exports = {
     app
 }
